@@ -3,28 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>百度翻译</title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="https://raw.githubusercontent.com/awang1/mycode/master/md5.js"></script>
+    <script type="text/javascript" src="jquery-latest.js"></script>
+    <script type="text/javascript" src="md5.js"></script>
+    <!--<script type="text/javascript" src="https://raw.githubusercontent.com/awang1/mycode/master/jquery.jsonp.js"></script>-->
     <script type="text/javascript">
 
         $(document).ready(function () {
             var q = "good";
-            var from = "zh";
-            var to = "cn";
+            var from = "en";
+            var to = "zh";
             var appid = "20161012000030043";
             var salt = "1435660288";
             var sign = MD5(appid + q + salt + "kRSFTqTUoAyju8mNBzVq");
             $("button").on("click", function () {
                 $(".to").text("3");
                 $.ajax({
-                    url: 'http://api.fanyi.baidu.com/api/trans/vip/translate,
-                    type: 'get',
-                    dataType:'json',
-                    success: function () {
-                        $(".to").text("1");
+                    url: 'http://api.fanyi.baidu.com/api/trans/vip/translate?q='+q+'&from='+from+'&to='+to+'&appid='+appid+'&salt='+salt+'&sign='+sign+'&callback=?',
+                    type: 'post',
+                    dataType : 'json',
+                    jsonp:'callback',
+                    jsonpCallback:"jsoncallback",
+                    success: function (data) {
+                        data1=JSON.parse(data.trans_result)
+                        $(".to").text(data1.toString());
+//                        for(var i in trans_result) {
+//                            $(".to").text(i+":"+trans_result[i]);//循环输出a:1,b:2,etc.
+//                        }
                     },
                     error: function () {
-                        $(".to").text("2");
+                        $(".to").text('2');
                     }
                 });
             });
