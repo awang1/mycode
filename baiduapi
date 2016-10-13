@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度翻译</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="https://raw.githubusercontent.com/awang1/mycode/master/md5.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var q = "good";
+            var from = "zh";
+            var to = "cn";
+            var appid = "20161012000030043";
+            var salt = "1435660288";
+            var sign = MD5(appid + q + salt + "kRSFTqTUoAyju8mNBzVq");
+            $("button").on("click", function () {
+                $(".to").text("3");
+                $.ajax({
+                    url: 'http://api.fanyi.baidu.com/api/trans/vip/translate,
+                    type: 'get',
+                    dataType:'json',
+                    success: function () {
+                        $(".to").text("1");
+                    },
+                    error: function () {
+                        $(".to").text("2");
+                    }
+                });
+            });
+            $("p").click(function () {
+                $(this).hide();
+            });
+        });
+    </script>
+</head>
+<body>
+<span style="display: none">APP ID: 20161012000030043 密钥: kRSFTqTUoAyju8mNBzVq 创建时间:
+        2016-10-12 11:49:51 网站或应用名称: www.baidu.com 网站或应用简介: for test 服务器地址: api:http://api.fanyi.baidu.com/api/trans/product/apiapply
+    </span>
+<div class="selectL" style="heigth: 50px; padding: 10px 0px; height: 50px;">
+    <select class="langA" id="langA" style="width: 100px; height: 30px; float: left; margin-right: 30px;">
+        <option value="zh">中文</option>
+        <option value="en">英文</option>
+        <option value="jp">日文</option>
+    </select>
+    <p style="float: left; margin: 5px -23px;">
+        to</p>
+    <select class="langB" id="langB" style="width: 100px; height: 30px; float: left; margin-right: 30px;">
+        <option value="zh">中文</option>
+        <option value="en" selected="selected">英文</option>
+        <option value="jp">日文</option>
+    </select>
+    <button type="button" style="margin-right: 30px; display: block; width: 70px; height: 30px;
+                            background-color: #777; border: 0px; border-radius: 2px; font-size: 16px; float: left;">
+        翻译
+    </button>
+</div>
+<div class="from">
+    <input id="q" type="text" style="float: left; width: 300px; height: 100px;">
+    <span class="to" style="background-color: #c3c3c3; width: 300px; height: 100px; display: block;
+            float: left; margin-left: 50px;"></span>
+</div>
+</body>
+</html>
